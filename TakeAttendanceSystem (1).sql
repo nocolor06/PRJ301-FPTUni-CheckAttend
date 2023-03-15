@@ -87,13 +87,13 @@ REFERENCES Instructor(instructorId)
 
 CREATE TABLE Attend
 (
-	aId int not Null IDENTITY,
+	aId int not Null IDENTITY(1,1),
 	studentId varchar(8) NOT NULL,
 	sessionId int NOT NULL,
 	[status] bit NULL,
 	recordTime datetime NULL,
 	comment nvarchar(max),
-	CONSTRAINT PK_Attend PRIMARY KEY (studentId, sessionId,aId)
+	CONSTRAINT PK_Attend PRIMARY KEY (aId)
 )
 ALTER TABLE Attend ADD CONSTRAINT FK_Attend_Session FOREIGN KEY(sessionId)
 REFERENCES [Session] (sessionId)
