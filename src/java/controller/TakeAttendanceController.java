@@ -21,7 +21,7 @@ import model.Student;
  * @author Asus
  */
 public class TakeAttendanceController extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,7 +38,7 @@ public class TakeAttendanceController extends HttpServlet {
             out.println("</html>");
         }
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,7 +47,7 @@ public class TakeAttendanceController extends HttpServlet {
         request.setAttribute("atts", atts);
         request.getRequestDispatcher("../view/lecturer/att.jsp").forward(request, response);
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,8 +61,9 @@ public class TakeAttendanceController extends HttpServlet {
             a.setStudent(s);
             a.setStatus(request.getParameter("status" + sid).equals("present"));
             a.setComment(request.getParameter("comment" + sid));
-             Timestamp today = new Timestamp(System.currentTimeMillis());
+            Timestamp today = new Timestamp(System.currentTimeMillis());
             a.setRecordTime(today);
+            a.setId(Integer.parseInt(request.getParameter("aid"+sid)));
             atts.add(a);
         }
         AttendDBContext db = new AttendDBContext();

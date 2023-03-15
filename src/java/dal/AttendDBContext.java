@@ -57,11 +57,13 @@ public class AttendDBContext extends DBContext<Attend> {
 
             //PROCESS Attendace records
             for (Attend att : atts) {
+                System.out.println("Prboelm:");
+                System.out.println(att.getId());
                 if (att.getId() == 0) //INSERT
                 {
                     String sql_insert_att = "INSERT INTO [Attend]([studentId],[sessionId],[status],[comment],[recordTime])\n"
                             + "VALUES\n"
-                            + "(?,?,?,?,?)";
+                            + "(?,?,?,?,?) ";
                     PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
                     stm_insert_att.setString(1, att.getStudent().getId());
                     stm_insert_att.setInt(2, sessionid);
@@ -69,6 +71,7 @@ public class AttendDBContext extends DBContext<Attend> {
                     stm_insert_att.setString(4, att.getComment());
                     stm_insert_att.setTimestamp(5, att.getRecordTime());
                     stm_insert_att.executeUpdate();
+                    System.out.println("INSERT");
                     stms.add(stm_insert_att);
 
                 } else //UPDATE
@@ -79,6 +82,7 @@ public class AttendDBContext extends DBContext<Attend> {
                     stm_update_att.setString(2, att.getComment());
                     stm_update_att.setInt(3, att.getId());
                     stm_update_att.executeUpdate();
+                    System.out.println("UPDATE");
                     stms.add(stm_update_att);
                 }
             }
@@ -136,6 +140,7 @@ public class AttendDBContext extends DBContext<Attend> {
                 s.setId(rs.getString("studentId"));
                 s.setName(rs.getString("studentName"));
                 a.setStudent(s);
+                System.out.println(a.getId());
                 atts.add(a);
             }
         } catch (SQLException ex) {

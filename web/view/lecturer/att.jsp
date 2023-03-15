@@ -41,7 +41,7 @@
                                    </c:if>
                                    name="status${a.student.id}" value="present"/>Present
                         </td>
-                        <td><input type="text" value="${a.comment}" name="description${a.student.id}"/></td>
+                        <td><input type="text" value="${a.comment}" name="comment${a.student.id}"/></td>
                     </tr>
                 </c:forEach>
             </table>
