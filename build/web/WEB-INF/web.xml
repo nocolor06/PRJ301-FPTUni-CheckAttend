@@ -8,6 +8,10 @@
         <servlet-name>TakeAttendanceController</servlet-name>
         <servlet-class>controller.TakeAttendanceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportAttendanceController</servlet-name>
+        <servlet-class>controller.ReportAttendaceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>TakeAttendanceController</servlet-name>
         <url-pattern>/lecturer/takeattend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportAttendanceController</servlet-name>
+        <url-pattern>/lecturer/reportattend</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
