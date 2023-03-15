@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import model.Attend;
 import model.Student;
@@ -60,6 +61,8 @@ public class TakeAttendanceController extends HttpServlet {
             a.setStudent(s);
             a.setStatus(request.getParameter("status" + sid).equals("present"));
             a.setComment(request.getParameter("comment" + sid));
+             Timestamp today = new Timestamp(System.currentTimeMillis());
+            a.setRecordTime(today);
             atts.add(a);
         }
         AttendDBContext db = new AttendDBContext();

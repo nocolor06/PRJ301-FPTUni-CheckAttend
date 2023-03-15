@@ -59,14 +59,15 @@ public class AttendDBContext extends DBContext<Attend> {
             for (Attend att : atts) {
                 if (att.getId() == 0) //INSERT
                 {
-                    String sql_insert_att = "INSERT INTO [Attend]([studentId],[sessionId],[status],[comment])\n"
+                    String sql_insert_att = "INSERT INTO [Attend]([studentId],[sessionId],[status],[comment],[recordTime])\n"
                             + "VALUES\n"
-                            + "(?,?,?,?)";
+                            + "(?,?,?,?,?)";
                     PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
                     stm_insert_att.setString(1, att.getStudent().getId());
                     stm_insert_att.setInt(2, sessionid);
                     stm_insert_att.setBoolean(3, att.isStatus());
                     stm_insert_att.setString(4, att.getComment());
+                    stm_insert_att.setTimestamp(5, att.getRecordTime());
                     stm_insert_att.executeUpdate();
                     stms.add(stm_insert_att);
 
