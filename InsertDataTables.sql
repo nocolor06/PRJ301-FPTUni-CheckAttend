@@ -1,4 +1,7 @@
-﻿
+﻿-- User TABLE
+INSERT INTO [User](username,[password],id,[role]) VALUES ('sonnt5','1','sonnt5',1)
+INSERT INTO [User](username,[password],id,[role]) VALUES ('giangpt','1','HE170907',0)
+
 --	COURSE TABLE 
 INSERT INTO Course (courseId, courseName) VALUES ('VOV124', N'Vovinam 2');
 INSERT INTO Course (courseId, courseName) VALUES ('VOV134', N'Vovinam 3');
