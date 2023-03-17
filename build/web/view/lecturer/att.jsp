@@ -32,12 +32,12 @@
                         <td>${a.student.name}</td>
                         <td><input type="radio"
                                    <c:if test="${!a.status}">
-                                   checked="checked"
+                                       checked="checked"
                                    </c:if>
                                    name="status${a.student.id}" value="absent"/>Absent
                             <input type="radio"
                                    <c:if test="${a.status}">
-                                   checked="checked"
+                                       checked="checked"
                                    </c:if>
                                    name="status${a.student.id}" value="present"/>Present
                         </td>

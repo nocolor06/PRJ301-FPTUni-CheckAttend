@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AttendDBContext;
+import dal.LecturerDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +15,9 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import model.Attend;
+import model.Session;
 import model.Student;
+import model.User;
 
 /**
  *
@@ -43,7 +46,27 @@ public class TakeAttendanceController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AttendDBContext db = new AttendDBContext();
-        ArrayList<Attend> atts = db.getAttsBySessionID(Integer.parseInt(request.getParameter("id")));
+        int x;
+        try {
+            x = Integer.parseInt(request.getParameter("id"));
+        } catch (Exception e) {
+            request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
+        }
+        x= Integer.parseInt(request.getParameter("id"));
+        User user =(User) request.getSession().getAttribute("user");
+        LecturerDBContext ldb = new LecturerDBContext();
+        ArrayList<Session> sessions = ldb.getSessions(user.getId());
+        boolean checkSession = false;
+        for (Session s : sessions) {
+            if(s.getId() == x){
+                checkSession = true;
+                break;
+            }
+        }
+        if(checkSession == false){
+            request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
+        }
+        ArrayList<Attend> atts = db.getAttsBySessionID(x);
         request.setAttribute("atts", atts);
         request.getRequestDispatcher("../view/lecturer/att.jsp").forward(request, response);
     }

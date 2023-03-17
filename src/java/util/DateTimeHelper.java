@@ -4,7 +4,10 @@
  */
 package util;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -63,4 +66,21 @@ public class DateTimeHelper {
         }
     }
 
+    public static ArrayList<String> getWeekStartEndDates(int year, String mid) {
+        ArrayList<String> weekStartEndDates = new ArrayList<>();
+        LocalDate date = LocalDate.of(year, 1, 1);
+
+        while (date.getYear() == year) {
+            LocalDate weekStart = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate weekEnd = weekStart.plusDays(6);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            weekStartEndDates.add("Week " + weekStart.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR) + " starting on "
+//                    + weekStart.format(formatter) + " and ending on " + weekEnd.format(formatter));
+            weekStartEndDates.add(weekStart.format(formatter).substring(5) + mid + weekEnd.format(formatter).substring(5));
+
+            date = weekEnd.plusDays(1);
+        }
+        weekStartEndDates.remove(0);
+        return weekStartEndDates;
+    }
 }

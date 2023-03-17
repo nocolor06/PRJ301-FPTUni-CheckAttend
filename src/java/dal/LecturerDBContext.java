@@ -66,7 +66,7 @@ public class LecturerDBContext extends DBContext<Instructor> {
                 Room r = new Room();
                 r.setId(rs.getString("roomId"));
                 s.setRoom(r);
-                if (rs.getString("sessionName") == null ) {
+                if (rs.getString("sessionName") == null) {
                     s.setName("Take Attend");
                 } else if (rs.getString("sessionName") != null) {
                     s.setName(rs.getString("sessionName"));
@@ -95,6 +95,54 @@ public class LecturerDBContext extends DBContext<Instructor> {
         }
         System.out.println(sessions.size());
         return sessions;
+    }
+
+    public ArrayList<Group> getAllGroup(String lid) {
+        String sql = "SELECT g.groupId,g.groupName,c.courseId,c.courseName\n"
+                + "FROM [Group] g inner join [Instructor] i on g.instructorId = i.instructorId\n"
+                + "				inner join [Course] c on c.courseId = g.courseId\n"
+                + "where i.instructorId = ?";
+        ArrayList<Group> groups = new ArrayList<>();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, lid);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Group g = new Group();
+                g.setId(rs.getInt("groupId"));
+                g.setName(rs.getString("groupName"));
+                Course c = new Course();
+                Instructor i = new Instructor();
+                i.setId(lid);
+                c.setId(rs.getString("courseId"));
+                c.setName(rs.getString("courseName"));
+                g.setCourses(c);
+                g.setInstructors(i);
+                groups.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return groups;
     }
 
     @Override
