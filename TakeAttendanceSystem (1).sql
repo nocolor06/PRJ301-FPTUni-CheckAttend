@@ -19,7 +19,7 @@ CREATE TABLE Course
 
 CREATE TABLE Student
 (
-	studentId varchar(20) NOT NULL,
+	studentId varchar(8) NOT NULL,
 	studentName nvarchar(100),
 	studentImage varchar(max),
 	CONSTRAINT PK_Student PRIMARY KEY (studentId)
@@ -49,17 +49,26 @@ CREATE TABLE [Group]
 	CONSTRAINT PK_Group PRIMARY KEY (groupId)
 )
 
-CREATE TABLE [User]
+CREATE TABLE [UserInstructor]
 (
 	username varchar(50) not null,
-	password varchar(50) not null,
+	[password] varchar(50) not null,
 	id varchar(20) not null,
 	role int not null
-	CONSTRAINT PK_User PRIMARY KEY (username)
+	CONSTRAINT PK_UserInstructor PRIMARY KEY (username)
 )
-ALTER TABLE [User] ADD CONSTRAINT FK_User_Student FOREIGN KEY(id)
+
+CREATE TABLE [UserStudent]
+(
+	username varchar(50) not null,
+	[password] varchar(50) not null,
+	id varchar(8) not null,
+	role int not null
+	CONSTRAINT PK_UserStudent PRIMARY KEY(username)
+)
+ALTER TABLE [UserStudent] ADD CONSTRAINT FK_UserStudent_Student FOREIGN KEY(id)
 REFERENCES STUDENT(studentId)
-ALTER TABLE [User] ADD CONSTRAINT FK_User_Instructor FOREIGN KEY(id)
+ALTER TABLE [UserInstructor] ADD CONSTRAINT FK_User_Instructor FOREIGN KEY(id)
 REFERENCES Instructor(instructorId)
 
 ALTER TABLE [Group] ADD CONSTRAINT FK_Group_Course FOREIGN KEY(courseId)
