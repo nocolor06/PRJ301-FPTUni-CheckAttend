@@ -19,7 +19,7 @@ CREATE TABLE Course
 
 CREATE TABLE Student
 (
-	studentId varchar(8) NOT NULL,
+	studentId varchar(20) NOT NULL,
 	studentName nvarchar(100),
 	studentImage varchar(max),
 	CONSTRAINT PK_Student PRIMARY KEY (studentId)
@@ -62,7 +62,7 @@ CREATE TABLE [UserStudent]
 (
 	username varchar(50) not null,
 	[password] varchar(50) not null,
-	id varchar(8) not null,
+	id varchar(20) not null,
 	role int not null
 	CONSTRAINT PK_UserStudent PRIMARY KEY(username)
 )
@@ -70,6 +70,7 @@ ALTER TABLE [UserStudent] ADD CONSTRAINT FK_UserStudent_Student FOREIGN KEY(id)
 REFERENCES STUDENT(studentId)
 ALTER TABLE [UserInstructor] ADD CONSTRAINT FK_User_Instructor FOREIGN KEY(id)
 REFERENCES Instructor(instructorId)
+
 
 ALTER TABLE [Group] ADD CONSTRAINT FK_Group_Course FOREIGN KEY(courseId)
 REFERENCES Course (courseId)
@@ -79,7 +80,7 @@ REFERENCES Instructor (instructorId)
  CREATE TABLE Participate
  (
 	groupId int NOT NULL,
-	studentId varchar(8) NOT NULL,
+	studentId varchar(20) NOT NULL,
 	CONSTRAINT PK_Participate PRIMARY KEY (groupId, studentId)
 )
 
@@ -111,7 +112,7 @@ REFERENCES Instructor(instructorId)
 CREATE TABLE Attend
 (
 	aId int not Null IDENTITY(1,1) primary key,
-	studentId varchar(8) NOT NULL,
+	studentId varchar(20) NOT NULL,
 	sessionId int NOT NULL,
 	[status] bit NULL,
 	recordTime datetime NULL,
