@@ -15,7 +15,6 @@
         <title>FU AT</title>
     </head>
     <body>
-        ${requestScope.mess}
         <div class="header">
             <div class="header-info"><h1>FPT University Attendance Taking</h1></div>
 

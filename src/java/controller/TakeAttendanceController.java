@@ -24,7 +24,7 @@ import model.User;
  * @author Asus
  */
 public class TakeAttendanceController extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -41,10 +41,14 @@ public class TakeAttendanceController extends HttpServlet {
             out.println("</html>");
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User u = (User) request.getSession().getAttribute("user");
+        if (u.getRole() != 1) {
+            request.getRequestDispatcher("../view/student/home.jsp").forward(request, response);
+        }
         AttendDBContext db = new AttendDBContext();
         int x;
         try {
@@ -52,25 +56,25 @@ public class TakeAttendanceController extends HttpServlet {
         } catch (Exception e) {
             request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }
-        x= Integer.parseInt(request.getParameter("id"));
-        User user =(User) request.getSession().getAttribute("user");
+        x = Integer.parseInt(request.getParameter("id"));
+        User user = (User) request.getSession().getAttribute("user");
         LecturerDBContext ldb = new LecturerDBContext();
         ArrayList<Session> sessions = ldb.getSessions(user.getId());
         boolean checkSession = false;
         for (Session s : sessions) {
-            if(s.getId() == x){
+            if (s.getId() == x) {
                 checkSession = true;
                 break;
             }
         }
-        if(checkSession == false){
+        if (checkSession == false) {
             request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }
         ArrayList<Attend> atts = db.getAttsBySessionID(x);
         request.setAttribute("atts", atts);
         request.getRequestDispatcher("../view/lecturer/att.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -86,7 +90,7 @@ public class TakeAttendanceController extends HttpServlet {
             a.setComment(request.getParameter("comment" + sid));
             Timestamp today = new Timestamp(System.currentTimeMillis());
             a.setRecordTime(today);
-            a.setId(Integer.parseInt(request.getParameter("aid"+sid)));
+            a.setId(Integer.parseInt(request.getParameter("aid" + sid)));
             atts.add(a);
         }
         AttendDBContext db = new AttendDBContext();

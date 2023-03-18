@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.student;
 
 import dal.LecturerDBContext;
 import dal.TimeSlotDBContext;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import model.Session;
@@ -24,19 +24,10 @@ import util.DateTimeHelper;
 
 /**
  *
- * @author sonnt
+ * @author Asus
  */
-public class TimeTableController extends HttpServlet {
+public class TimeTableStudentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String lid = request.getParameter("lid");
@@ -94,7 +85,7 @@ public class TimeTableController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String lid = request.getParameter("student");
+        String lid = request.getParameter("lecturer");
 //        Date from = Date.valueOf(request.getParameter("from"));
 //        Date to = Date.valueOf(request.getParameter("to"));
         if (lid == null) {

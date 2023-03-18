@@ -20,6 +20,18 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/lecturer/home</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/student/home</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/student/timetable</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/student/viewattend</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>TimeTableController</servlet-name>
         <servlet-class>controller.TimeTableController</servlet-class>
@@ -48,6 +60,18 @@
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.HomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TimeTableStudentController</servlet-name>
+        <servlet-class>controller.student.TimeTableStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeStudentController</servlet-name>
+        <servlet-class>controller.student.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAttendController</servlet-name>
+        <servlet-class>controller.student.ViewAttendController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
@@ -75,6 +99,18 @@
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/lecturer/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TimeTableStudentController</servlet-name>
+        <url-pattern>/student/timetable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeStudentController</servlet-name>
+        <url-pattern>/student/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendController</servlet-name>
+        <url-pattern>/student/viewattend</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

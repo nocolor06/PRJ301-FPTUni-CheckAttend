@@ -24,7 +24,7 @@ import model.User;
  * @author Asus
  */
 public class CheckAttendController extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -41,35 +41,39 @@ public class CheckAttendController extends HttpServlet {
             out.println("</html>");
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AttendDBContext db = new AttendDBContext(); int x;
+        User user = (User) request.getSession().getAttribute("user");
+        if(user.getRole() == 0){
+            response.getWriter().print("You do not havea accesss");
+        }
+        AttendDBContext db = new AttendDBContext();
+        int x;
         try {
             x = Integer.parseInt(request.getParameter("id"));
         } catch (Exception e) {
             request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }
-        x= Integer.parseInt(request.getParameter("id"));
-        User user =(User) request.getSession().getAttribute("user");
+        x = Integer.parseInt(request.getParameter("id"));
         LecturerDBContext ldb = new LecturerDBContext();
         ArrayList<Session> sessions = ldb.getSessions(user.getId());
         boolean checkSession = false;
         for (Session s : sessions) {
-            if(s.getId() == x){
+            if (s.getId() == x) {
                 checkSession = true;
                 break;
             }
         }
-        if(checkSession == false){
+        if (checkSession == false) {
             request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }
         ArrayList<Attend> atts = db.getAttsBySessionID(x);
         request.setAttribute("atts", atts);
         request.getRequestDispatcher("../view/lecturer/checkattend.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

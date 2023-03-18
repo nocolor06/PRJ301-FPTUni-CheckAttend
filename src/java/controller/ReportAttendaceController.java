@@ -26,6 +26,10 @@ public class ReportAttendaceController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User u = (User) request.getSession().getAttribute("user");
+        if (u.getRole() != 1) {
+            request.getRequestDispatcher("../view/student/home.jsp").forward(request, response);
+        }
         StudentDBContext db = new StudentDBContext();
         String gid = request.getParameter("gid");
         User user = (User) request.getSession().getAttribute("user");

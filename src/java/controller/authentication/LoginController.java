@@ -60,6 +60,7 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }else if(user != null && user.getRole() == 0){
            // return student
+           request.getRequestDispatcher("../view/student/home.jsp").forward(request, response);
         }
         request.getRequestDispatcher("../view/authentication/login.jsp").forward(request, response);
     }
