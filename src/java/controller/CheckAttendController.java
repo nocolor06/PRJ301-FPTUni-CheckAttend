@@ -47,7 +47,7 @@ public class CheckAttendController extends HttpServlet {
             throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         if(user.getRole() == 0){
-            response.getWriter().print("You do not havea accesss");
+            response.getWriter().print("You do not have accesss");
         }
         AttendDBContext db = new AttendDBContext();
         int x;

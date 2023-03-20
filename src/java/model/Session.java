@@ -19,6 +19,15 @@ public class Session {
     private Group group;
     private Room room;
     private boolean status;
+    private boolean notyet = false;
+
+    public boolean isNotyet() {
+        return notyet;
+    }
+
+    public void setNotyet(boolean notyet) {
+        this.notyet = notyet;
+    }
 
     public boolean isStatus() {
         return status;
@@ -96,4 +105,5 @@ public class Session {
     public void setRoom(Room room) {
         this.room = room;
     }
+
 }

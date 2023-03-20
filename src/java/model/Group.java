@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 
 /**
  *
@@ -14,7 +16,16 @@ public class Group {
     private int id;
     private String name;
     private Course course;
+    private ArrayList<Session> sessions = new ArrayList<>();
     private Instructor instructors;
+    
+     public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
 
     public Group() {
     }

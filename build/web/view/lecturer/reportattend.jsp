@@ -42,8 +42,5 @@
             </table>
         </c:if>
         <a href="home">Return to homepage</a>
-
-
-
     </body>
 </html>

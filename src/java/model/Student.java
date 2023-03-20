@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Asus
@@ -13,6 +15,18 @@ public class Student {
     private String name;
     private String img;
     private int absent;
+    private ArrayList<Group> groups = new ArrayList<>();
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+
+
 
     public int getAbsent() {
         return absent;

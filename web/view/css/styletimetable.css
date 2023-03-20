@@ -37,7 +37,7 @@
     border-collapse: collapse;
 }
 .timetable-head{
-    background-color: blue;
+    background-color: orange;
 }
 .timetable td{
     border-left: white solid 1px;

@@ -60,7 +60,7 @@ public class TimeTableController extends HttpServlet {
             throws ServletException, IOException {
         User u = (User) request.getSession().getAttribute("user");
         if (u.getRole() != 1) {
-            request.getRequestDispatcher("../view/student/home.jsp").forward(request, response);
+            request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }
         ArrayList<String> weeks = DateTimeHelper.getWeekStartEndDates(LocalDate.now().getYear(), " ");
         ArrayList<String> weeksto = DateTimeHelper.getWeekStartEndDates(LocalDate.now().getYear(), " to ");
