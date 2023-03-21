@@ -14,19 +14,101 @@
         <link rel="stylesheet" href="../view/css/styletimetable.css">
         <title>FU AT</title>
     </head>
-    <body>
-        <div class="header">
-            <div class="header-info"><h1>FPT University Attendance Taking</h1></div>
+    <style>
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
 
-            <div class="header-img">
-                <img src="../view/img/fpt-university-logo.png" alt="Image description"/>
+        .header-info{
+            padding-top: 1.5em;
+            padding-left: 5em;
+            text-transform: uppercase;
+            font-size: 1em;
+            font-weight: normal;
+            font-family: sans-serif;
+        }
+
+        .header-img{
+            padding-right: 5em;
+        }
+        .header img{
+            width: 12em;
+            height: 10em;
+        }
+
+        .lecturerinput{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1em;
+            margin-left: 5em;
+            margin-top:5em;
+        }
+        .timetable{
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            height: 50%;
+        }
+
+        .timetable td{
+            border-bottom: 1px solid black;
+            border-collapse: collapse;
+        }
+        .timetable-head{
+            background-color: orange;
+        }
+        .timetable td{
+            border-left: white solid 1px;
+        }
+        .dateWeek{
+            border-top: white solid 1px;
+        }
+        .main{
+            display: flex;
+        }
+        .options ul{
+            display: flex;
+            list-style: none;
+            text-align: center;
+            margin-top: 3em;
+            margin-left: 3em;
+            font-style: normal;
+
+        }
+        .options li{
+            margin-right: 5em;
+            text-align: center;
+            font-style: normal;
+        }
+        .form-logout{
+            margin-top:3em;
+        }
+    </style>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="header-info"><h1>FPT University Attendance Taking</h1></div>
+            </div>
+
+            <div class="options">
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/lecturer/timetable">ViewTimeTable</a></li>
+                    <li><a href="${pageContext.request.contextPath}/lecturer/reportattend">Report Attend Of Classes</a></li>
+                </ul>
+            </div>   
+            <div class="form-logout">
+                <form method="post" action="../auth/logout" >  
+                    <button>Logout</button>
+                </form>
             </div>
         </div>
         <div class="lecturerinput">
-            <input type="text" value="${sessionScope.user.id}"  readonly="">
-            <input type="hidden" name="lecturer" value="${sessionScope.user.id}">
+            <label>Lecturer: </label>
+            <input type="text" name="lid" value="${sessionScope.user.id}" readonly >
         </div>
-
         <table class="timetable">
             <tr class="timetable-head">
                 <td>
@@ -41,7 +123,7 @@
                                 <br>
                                 WEEK:
                                 <select id="weekSelect" name="week" onchange="this.form.submit()">
-                                /*<c:forEach items="${requestScope.weeks}" var="w" varStatus="loop">
+                                    /*<c:forEach items="${requestScope.weeks}" var="w" varStatus="loop">
                                     <option value="${w}" <c:if test="${requestScope.fromandto eq w}">selected</c:if>>${requestScope.weeksto[loop.index]}</option>
                                 </c:forEach>
                             </select>
@@ -74,17 +156,18 @@
                     </td>
                     <c:forEach items="${requestScope.dates}" var="d">
                         <td>
-                            -
-                            <c:forEach items="${requestScope.sessions}" var="ses">
-                                <c:if test="${ses.slot.id eq s.id and ses.date eq d}">
-                                    ${ses.group.name}-${ses.group.course.id} <br/>
-                                    ${ses.room.id} 
-                                    <c:set var="name" value="${ses.name}"> </c:set>
-                                    <c:set var="takeattend" value="Take Attend"> </c:set>
-                                    <c:if test="${name eq takeattend}">-<a href="takeattend?id=${ses.id}">${ses.name}</a></c:if>
-                                    <c:if test="${!(name eq takeattend)}"><a href="checkattend?id=${ses.id}">-${ses.name}</c:if>
-                                    </c:if>
-                                </c:forEach>
+                            <p>-
+                                <c:forEach items="${requestScope.sessions}" var="ses">
+                                    <c:if test="${ses.slot.id eq s.id and ses.date eq d}">
+                                        ${ses.group.name}-${ses.group.course.id} <br/>
+                                        ${ses.room.id} 
+                                        <c:set var="name" value="${ses.name}"> </c:set>
+                                        <c:set var="takeattend" value="Take Attend"> </c:set>
+                                        <c:if test="${name eq takeattend}">-<a href="takeattend?id=${ses.id}" style="color: green">${ses.name}</a></c:if>
+                                        <c:if test="${!(name eq takeattend)}"><a href="checkattend?id=${ses.id}" style="color:green">-${ses.name}</c:if>
+                                        </c:if>
+                                    </c:forEach>
+                            </p>
                         </td>
                     </c:forEach>
                 <tr/> 

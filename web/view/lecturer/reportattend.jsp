@@ -13,34 +13,124 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <style>
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-info{
+            padding-top: 1.5em;
+            padding-left: 5em;
+            text-transform: uppercase;
+            font-size: 1em;
+            font-weight: normal;
+            font-family: sans-serif;
+        }
+
+        .header-img{
+            padding-right: 5em;
+        }
+        .header img{
+            width: 12em;
+            height: 10em;
+        }
+
+        .lecturerinput{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1em;
+            margin-left: 5em;
+            margin-top:5em;
+        }
+        .timetable{
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .timetable td{
+            border-bottom: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        .timetable-head{
+            background-color: orange;
+        }
+        .timetable td{
+            border-left: white solid 1px;
+        }
+        .dateWeek{
+            border-top: white solid 1px;
+        }
+        .main{
+            display: flex;
+        }
+        .options ul{
+            display: flex;
+            list-style: none;
+            text-align: center;
+            margin-top: 3em;
+            margin-left: 3em;
+            font-style: normal;
+
+        }
+        .options li{
+            margin-right: 5em;
+            text-align: center;
+            font-style: normal;
+        }
+        .form-logout{
+            margin-top:3em;
+        }
+    </style>
     <body>
-        <div>
-            <ul>
-                <c:forEach items="${requestScope.groups}" var="g">
-                    <a href="reportattend?gid=${g.id}"><li>(${g.name}-${g.course.id}-${g.course.name})</li></a>
-                        </c:forEach>
-            </ul>
+        <div class="main">
+        <div class="header">
+            <div class="header-info"><h1>FPT University Attendance Taking</h1></div>
         </div>
 
-        <c:if test="${requestScope.students ne null}">
-            <table border="1px">
-                <tr>
-                    <td>Student ID</td>
-                    <td>Student Name</td>
-                    <td>Absent</td>
-                </tr>
+        <div class="options">
+            <ul>
+                <li><a href="${pageContext.request.contextPath}/lecturer/timetable">ViewTimeTable</a></li>
+                <li><a href="${pageContext.request.contextPath}/lecturer/reportattend">Report Attend Of Classes</a></li>
+            </ul>
+        </div>   
+        <div class="form-logout">
+            <form method="post" action="../auth/logout" >  
+                <button>Logout</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        List of your classes:
+        <ul>
+            <c:forEach items="${requestScope.groups}" var="g">
+                <a href="reportattend?gid=${g.id}"><li>(${g.name}-${g.course.id}-${g.course.name})</li></a>
+                    </c:forEach>
+        </ul>
+    </div>
 
-                <c:forEach items="${requestScope.students}" var="s">
-                    <tr>
-                        <td>${s.id}</td>
-                        <td>${s.name}</td>
-                        <td>
-                            <fmt:formatNumber value="${(s.absent/20)*100}" type="number" pattern="#,##0.00" />
-                            %</td>
-                    </tr>        
-                </c:forEach>
-            </table>
-        </c:if>
-        <a href="home">Return to homepage</a>
-    </body>
+    <c:if test="${requestScope.students ne null}">
+        <table border="1px" class="timetable">
+            <tr class="timetable-head">
+                <td>Student ID</td>
+                <td>Student Name</td>
+                <td>Absent</td>
+            </tr>
+
+            <c:forEach items="${requestScope.students}" var="s">
+                <tr>
+                    <td>${s.id}</td>
+                    <td>${s.name}</td>
+                    <td>
+                        <fmt:formatNumber value="${(s.absent/20)*100}" type="number" pattern="#,##0.00" />
+                        %</td>
+                </tr>        
+            </c:forEach>
+        </table>
+    </c:if>
+    <a href="home">Return to homepage</a>
+</body>
 </html>

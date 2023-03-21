@@ -63,10 +63,11 @@ public class TimeTableController extends HttpServlet {
             request.getRequestDispatcher("../view/lecturer/home.jsp").forward(request, response);
         }
         ArrayList<String> weeks = DateTimeHelper.getWeekStartEndDates(LocalDate.now().getYear(), " ");
-        ArrayList<String> weeksto = DateTimeHelper.getWeekStartEndDates(LocalDate.now().getYear(), " to ");
+        ArrayList<String> weeksto = DateTimeHelper.getWeekStartEndDates1(LocalDate.now().getYear(), " to ");
         request.setAttribute("weeks", weeks);
         request.setAttribute("weeksto", weeksto);
         request.setAttribute("year", LocalDate.now().getYear());
+
         String lid = u.getId();
         LocalDate currentDate = LocalDate.now();
         LocalDate startOfWeek = currentDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
@@ -79,6 +80,7 @@ public class TimeTableController extends HttpServlet {
         LecturerDBContext lecDb = new LecturerDBContext();
         ArrayList<Session> sessions = lecDb.getSessions(lid);
         String fromandto = sqlStartDate.toString().substring(5) + " " + sqlEndDate.toString().substring(5);
+
         System.out.println(fromandto);
         request.setAttribute("weeksto", weeksto);
         request.setAttribute("weeks", weeks);
@@ -112,9 +114,10 @@ public class TimeTableController extends HttpServlet {
             from = Date.valueOf(year + "-" + x[0]);
             to = Date.valueOf(year + "-" + x[1]);
         }
+      
         ArrayList<Date> dates = DateTimeHelper.getListDates(from, to);
         ArrayList<String> weeks = DateTimeHelper.getWeekStartEndDates(Integer.parseInt(year), " ");
-        ArrayList<String> weeksto = DateTimeHelper.getWeekStartEndDates(Integer.parseInt(year), " to ");
+        ArrayList<String> weeksto = DateTimeHelper.getWeekStartEndDates1(Integer.parseInt(year), " to ");
         TimeSlotDBContext dbSlot = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = dbSlot.all();
         LecturerDBContext lecDb = new LecturerDBContext();

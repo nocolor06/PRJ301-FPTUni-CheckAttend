@@ -83,4 +83,22 @@ public class DateTimeHelper {
         weekStartEndDates.remove(0);
         return weekStartEndDates;
     }
+
+    public static ArrayList<String> getWeekStartEndDates1(int year, String mid) {
+        ArrayList<String> weekStartEndDates = new ArrayList<>();
+        LocalDate date = LocalDate.of(year, 1, 1);
+
+        while (date.getYear() == year) {
+            LocalDate weekStart = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate weekEnd = weekStart.plusDays(6);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//            weekStartEndDates.add("Week " + weekStart.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR) + " starting on "
+//                    + weekStart.format(formatter) + " and ending on " + weekEnd.format(formatter));
+            weekStartEndDates.add(weekStart.format(formatter).substring(0,5) + mid + weekEnd.format(formatter).substring(0,5));
+
+            date = weekEnd.plusDays(1);
+        }
+        weekStartEndDates.remove(0);
+        return weekStartEndDates;
+    }
 }

@@ -20,11 +20,13 @@ body{
     top: 40%;
     left: 40%;
 }
+button{
+    background-color: orange;
+}
 .header{
     display: flex;
     justify-content: space-between;
 }
-
 .header-info{
     padding-top: 1.5em;
     padding-left: 5em;
@@ -40,5 +42,5 @@ body{
 .header img{
     width: 12em;
     height: 10em;
-}
 
+}
